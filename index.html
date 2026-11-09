@@ -55,11 +55,15 @@ li.brk .s{color:inherit}
 #w .home{margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.35);font-size:.95rem;font-weight:600;font-variant-numeric:tabular-nums}
 .bar{height:6px;background:rgba(255,255,255,.3);border-radius:3px;margin-top:8px;overflow:hidden}
 .bar i{display:block;height:100%;width:0;background:currentColor;transition:width 1s linear}
-#pill{display:none;width:100%;align-items:center;justify-content:space-between;gap:10px;border:0;background:transparent;color:inherit;font:inherit;padding:10px 14px;cursor:pointer}
+#pill{display:none;width:100%;flex-direction:column;align-items:stretch;gap:2px;text-align:left;border:0;background:transparent;color:inherit;font:inherit;padding:10px 14px;cursor:pointer}
 #pill b{font-variant-numeric:tabular-nums;font-size:1.15rem}
+#pill .r1{display:flex;justify-content:space-between;align-items:center;gap:14px}
+#pill .r2{font-size:.85rem;opacity:.9;font-variant-numeric:tabular-nums}
 #w.min .head,#w.min .body{display:none}
 #w.min #pill{display:flex}
-#w.min{width:auto;max-width:calc(100vw - 32px)}
+#w.min{width:auto;min-width:230px;max-width:calc(100vw - 32px)}
+body.mini .wrap{display:none}
+body.mini #w{top:calc(12px + env(safe-area-inset-top,0px));left:max(12px,env(safe-area-inset-left,0px));right:auto;bottom:auto}
 @media (max-width:520px){li{grid-template-columns:90px 1fr auto;padding:12px}.clock b{font-size:2rem}}
 @media (prefers-reduced-motion:reduce){.bar i{transition:none}}
 </style>
@@ -87,7 +91,7 @@ li.brk .s{color:inherit}
     <div class="home" id="wh"></div>
     <div class="bar"><i id="wb"></i></div>
   </div>
-  <button id="pill" aria-label="Perbesar hitung mundur"><span id="pl">Memuat…</span><b id="pc">--:--</b></button>
+  <button id="pill" aria-label="Perbesar hitung mundur"><span class="r1"><span id="pl">Memuat…</span><b id="pc">--:--</b></span><span class="r2" id="pp"></span></button>
 </aside>
 
 <script>
@@ -195,14 +199,14 @@ function tick(){
   }
   var home="Hari ini libur";
   if(items){var eD=sec(items[items.length-1][1]);home=s<eD?"Pulang dalam "+fmt(eD-s)+" (pukul "+items[items.length-1][1]+")":"Pelajaran selesai, waktunya pulang";}
-  $("wh").textContent=home;$("ph").textContent=home;
+  $("wh").textContent=home;$("pp").textContent=home;$("ph").textContent=home;
   $("wl").textContent=lbl;$("wc").textContent=cd;$("wn").textContent=nx;$("wb").style.width=pct+"%";
   $("pl").textContent=lbl.replace(" (selesai dalam)","");$("pc").textContent=cd;
   document.title=cd+" · Jadwal Pelajaran";
 }
 
 function setMin(v){
-  $("w").classList.toggle("min",v);
+  $("w").classList.toggle("min",v);document.body.classList.toggle("mini",v);
   try{localStorage.setItem("jadwalMin",v?"1":"0")}catch(e){}
 }
 $("mn").onclick=function(){setMin(true)};
