@@ -61,9 +61,13 @@ li.brk .s{color:inherit}
 #pill .r2{font-size:.85rem;opacity:.9;font-variant-numeric:tabular-nums}
 #w.min .head,#w.min .body{display:none}
 #w.min #pill{display:flex}
-#w.min{width:auto;min-width:230px;max-width:calc(100vw - 32px)}
 body.mini .wrap{display:none}
-body.mini #w{top:calc(12px + env(safe-area-inset-top,0px));left:max(12px,env(safe-area-inset-left,0px));right:auto;bottom:auto}
+body.mini #w{inset:0;width:auto;max-width:none;min-width:0;border-radius:0;box-shadow:none;display:flex}
+body.mini #pill{height:100%;align-items:center;justify-content:center;text-align:center;gap:1.5vmin;padding:calc(2vmin + env(safe-area-inset-top,0px)) 2vmin calc(2vmin + env(safe-area-inset-bottom,0px))}
+body.mini #pill .r1{flex-direction:column;gap:1vmin}
+body.mini #pl{font-size:clamp(.85rem,min(6vw,7vh),2.4rem);font-weight:600;line-height:1.2}
+body.mini #pc{font-size:min(20vw,30vh);line-height:1}
+body.mini #pill .r2{font-size:clamp(.8rem,min(4.5vw,5.5vh),1.7rem);font-weight:600}
 @media (max-width:520px){li{grid-template-columns:90px 1fr auto;padding:12px}.clock b{font-size:2rem}}
 @media (prefers-reduced-motion:reduce){.bar i{transition:none}}
 </style>
